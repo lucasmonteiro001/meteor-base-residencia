@@ -1,37 +1,37 @@
 import {FlowRouter} from 'meteor/kadira:flow-router';
-import teste from '../../ui/public/teste';
-import tarefas from '../../ui/public/teste0';
-import login from '../../ui/public/login';
-import recoverPassword from '../../ui/public/recover-password';
-import resetPassword from '../../ui/public/reset-password';
-import signup from '../../ui/public/signup';
-import layout from '../../ui/layouts/default';
+import '../../ui/public/teste';
+import '../../ui/public/teste0';
+import '../../ui/public/login';
+import '../../ui/public/recover-password';
+import '../../ui/public/reset-password';
+import '../../ui/public/signup';
+import '../../ui/layouts/default';
 
 FlowRouter.route("/", {
     name: "homepage",
     action() {
-        BlazeLayout.render( 'default', { yield: teste } );
+        BlazeLayout.render( 'default', { yield: 'teste' } );
     }
 });
 
 FlowRouter.route("/tarefas",  {
     name: "tarefas",
     action() {
-        BlazeLayout.render( 'default', { yield: tarefas } );
+        BlazeLayout.render( 'default', { yield: 'tarefas' } );
     }
 });
 
 FlowRouter.route("/login",  {
     name: "login",
     action() {
-        BlazeLayout.render( 'default', { yield: login } );
+        BlazeLayout.render( 'default', { yield: 'login' } );
     }
 });
 
 FlowRouter.route("/recover-password",  {
     name: "recoverPassword",
     action() {
-        BlazeLayout.render( 'default', { yield: recoverPassword } );
+        BlazeLayout.render( 'default', { yield: 'recoverPassword' } );
     }
 });
 
@@ -39,13 +39,13 @@ FlowRouter.route("/recover-password",  {
 FlowRouter.route("/reset-password",  {
     name: "resetPassword",
     action() {
-        BlazeLayout.render( 'default', { yield: resetPassword } );
+        BlazeLayout.render( 'default', { yield: 'resetPassword' } );
     }
 });
 
 FlowRouter.route("/signup",  {
     name: "signup",
     action() {
-        BlazeLayout.render( 'default', { yield: signup } );
+        BlazeLayout.render( 'default', { yield: 'signup' } );
     }
 });

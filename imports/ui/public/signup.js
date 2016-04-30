@@ -9,5 +9,3 @@ Template.signup.onRendered( () => {
 Template.signup.events({
   'submit form': ( event ) => event.preventDefault()
 });
-
-export default "signup";

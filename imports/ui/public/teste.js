@@ -5,5 +5,3 @@ import './teste.html';
 Template.apresentar.helpers({
   nome : "Lucas"
 });
-
-export default "apresentar"

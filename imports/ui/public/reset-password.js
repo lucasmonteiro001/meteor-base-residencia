@@ -8,5 +8,3 @@ Template.resetPassword.onRendered( () => {
 Template.resetPassword.events({
   'submit form': ( event ) => event.preventDefault()
 });
-
-export default "resetPassword";

@@ -34,5 +34,3 @@ Template.default.helpers({
 		], '/login' );
 	}
 });
-
-export default "default";

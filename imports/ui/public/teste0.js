@@ -12,5 +12,3 @@ Template.tasks.helpers({
     { text: 'This is task 7' },
   ],
 });
-
-export default "tasks";
