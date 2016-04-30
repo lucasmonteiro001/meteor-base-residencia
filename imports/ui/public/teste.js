@@ -6,4 +6,4 @@ Template.apresentar.helpers({
   nome : "Lucas"
 });
 
-export const Teste = "apresentar"
+export default "apresentar"
