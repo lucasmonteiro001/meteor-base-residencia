@@ -1,5 +1,3 @@
-import { Template } from 'meteor/templating';
-import './header.html';
 
 Template.header.rendered = function(){
 
@@ -15,6 +13,8 @@ Template.header.rendered = function(){
   );
 
 };
+
+
 
 Template.header.helpers({
   brandLink() {
@@ -35,5 +35,3 @@ Template.header.events({
     });
   }
 });
-
-export default "header";
