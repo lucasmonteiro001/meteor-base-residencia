@@ -1,8 +1,12 @@
 import { Template } from 'meteor/templating';
 import {FlowRouter} from 'meteor/kadira:flow-router';
+
 import './default.html';
 import '../globals/header.html';
 import '../globals/public-navigation.html';
+import '../globals/loading.html';
+
+import '../globals/authenticated-navigation';
 
 const handleRedirect = ( routes, redirect ) => {
 	let currentRoute = FlowRouter.getRouteName();

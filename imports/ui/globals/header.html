@@ -1,18 +1,28 @@
 <template name="header">
-
-
-	<nav>
-    <div class="nav-wrapper green darken-3">
-      <a class="brand-logo" href="{{brandLink}}">Projeto base</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-				{{#if currentUser}}
-					{{> authenticatedNavigation}}
-	      {{else}}
-	      	{{> publicNavigation}}
-	      {{/if}}
-      </ul>
-    </div>
-  </nav>
-
-
+<style media="all">
+.navbar-brand-centered {
+    position: absolute;
+    left: 50%;
+    display: block;
+    /*width: 160px;*/
+    text-align: center;
+    background-color: transparent;
+}
+.navbar>.container .navbar-brand-centered,
+.navbar>.container-fluid .navbar-brand-centered {
+    margin-left: -80px;
+}
+.navbar-right {
+    padding-right: 1.5em;
+}
+</style>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        {{#if currentUser}}
+        {{> authenticatedNavigation}}
+        {{else}}
+        {{> publicNavigation}}
+        {{/if}}
+    </div><!-- /.navbar-collapse -->
+</nav>
 </template>

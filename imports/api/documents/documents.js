@@ -1,6 +1,6 @@
 import { Mongo } from 'meteor/mongo';
 
-export const Documents = new Mongo.Collection('Documents');
+export const Documents = new Mongo.Collection('documents');
 
 Documents.schema = new SimpleSchema({
     title: {

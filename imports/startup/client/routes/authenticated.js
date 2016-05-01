@@ -1,3 +1,6 @@
+import {FlowRouter} from 'meteor/kadira:flow-router';
+import '../../../ui/authenticated/index';
+
 const authenticatedRoutes = FlowRouter.group({
   name: 'authenticated'
 });
@@ -5,6 +8,7 @@ const authenticatedRoutes = FlowRouter.group({
 authenticatedRoutes.route( '/', {
   name: 'index',
   action() {
+      console.log("index");
     BlazeLayout.render( 'default', { yield: 'index' } );
   }
 });
@@ -15,5 +19,3 @@ authenticatedRoutes.route( '/dashboard', {
     BlazeLayout.render( 'default', { yield: 'dashboard' } );
   }
 });
-
-
