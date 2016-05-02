@@ -8,7 +8,6 @@ const authenticatedRoutes = FlowRouter.group({
 authenticatedRoutes.route( '/', {
   name: 'index',
   action() {
-      console.log("index");
     BlazeLayout.render( 'default', { yield: 'index' } );
   }
 });
