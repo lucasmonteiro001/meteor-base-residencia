@@ -7,8 +7,15 @@ import '../../../ui/public/reset-password';
 import '../../../ui/public/signup';
 import '../../../ui/layouts/default';
 
+const publicRedirect = ( context, redirect ) => {
+    if ( Meteor.userId() ) {
+        redirect('index');
+    }
+};
+
 const publicRoutes = FlowRouter.group({
-  name: 'public'
+  name: 'public',
+  triggersEnter: [ publicRedirect ]
 });
 
 publicRoutes.route( '/signup', {

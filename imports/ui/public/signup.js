@@ -13,9 +13,10 @@ Template.signup.events({
         event.preventDefault();
         var email = $('[type=email]').val();
         var password = $('[name=password]').val();
+        var role = $('#role').val();
 
         Meteor.call('users.addUser', {
-            email:email, password:password
+            email:email, password:password, role:role
         }, (error,result) => {
             if(error) {
                 Bert.alert(error.reason, 'danger');

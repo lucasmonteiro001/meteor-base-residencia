@@ -12,7 +12,9 @@ Template.login.events({
         var email = $('[type=email]').val();
         var password = $('[name=password]').val();
         Meteor.loginWithPassword(email, password, function(error) {
-            Bert.alert(error.reason, 'danger', 'fixed-top', 'fa-frown-o');
+            if(error) {
+                Bert.alert(error.reason, 'danger', 'fixed-top', 'fa-frown-o');
+            }
         });
     }
 });

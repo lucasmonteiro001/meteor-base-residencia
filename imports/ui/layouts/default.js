@@ -5,15 +5,17 @@ import './default.html';
 import '../globals/header.html';
 import '../globals/public-navigation.html';
 import '../globals/loading.html';
-
 import '../globals/authenticated-navigation';
+import '../globals/footer.html';
 
 const handleRedirect = ( routes, redirect ) => {
 	let currentRoute = FlowRouter.getRouteName();
-	if ( routes.indexOf( currentRoute ) > -1 ) {
+
+    if ( routes.indexOf( currentRoute ) > -1 ) {
 		FlowRouter.go( redirect );
-		return true;
 	}
+    else
+        return false;
 };
 
 Template.default.helpers({
@@ -34,7 +36,8 @@ Template.default.helpers({
 	redirectPublic() {
 		return handleRedirect([
 			'index',
-			'dashboard'
+			'dashboard',
+            'users'
 		], '/login' );
 	}
 });
