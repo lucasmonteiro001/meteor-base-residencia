@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-alias scaf='node node_mudules/synergia-scaffolding/index.js'
+alias scaf='node node_modules/synergia-scaffolding/index.js'
