@@ -5,3 +5,7 @@ Para executar o projeto pela primeira vez:
 - meteor udpate
 - sudo npm install
 - meteor
+
+Agora, eh necessario rodar o arquivo de configuracao. Paral tal, excute:
+
+. ./configs/index.sh
