@@ -1,5 +1,5 @@
 import { Documents } from '../documents';
-import '../methods';
+import './methods';
 
 Meteor.publish('Documents', () => {
     return Documents.find();

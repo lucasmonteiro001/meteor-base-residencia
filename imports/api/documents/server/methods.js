@@ -1,4 +1,4 @@
-import { Documents } from './documents';
+import { Documents } from '../documents';
 
 export const insertDocument = new ValidatedMethod({
   name: 'documents.insert',

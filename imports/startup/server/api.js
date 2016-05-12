@@ -1,2 +1,2 @@
-import '../../api/documents/server/publications.js';
-import '../../api/users/server/publications.js';
+import '../../api/documents/server_imports';
+import '../../api/users/server_imports';
