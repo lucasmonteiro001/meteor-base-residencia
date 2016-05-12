@@ -46,6 +46,6 @@
     "jquery": "^2.2.3",
     "jquery-validation": "^1.15.0",
     "meteor-node-stubs": "^0.2.3",
-    "synergia-scaffolding": "1.0.2"
+    "synergia-scaffolding": "1.0.4"
   }
 }
