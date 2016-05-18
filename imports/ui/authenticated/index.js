@@ -1,6 +1,7 @@
 import { Template } from 'meteor/templating';
 import './index.html';
 import {Documents} from '../../api/documents/documents'
+import '../globals/page-heading.html';
 
 let template;
 

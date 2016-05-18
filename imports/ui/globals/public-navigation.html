@@ -1,21 +1,5 @@
 <template name="publicNavigation">
-
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-brand-centered">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <div class="navbar-brand navbar-brand-centered">Synergia</div>
-    </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="navbar-brand-centered">
-        <ul class="nav navbar-nav navbar-right">
-            <li class="{{currentRoute 'login'}}"><a href="{{pathFor 'login'}}">Login</a></li>
-            <li class="{{currentRoute 'signup'}}"><a href="{{pathFor 'signup'}}">Registrar</a></li>
-        </ul>
-    </div><!-- /.navbar-collapse -->
-
+            <li class="{{currentRoute 'login'}}"><a href="{{pathFor 'login'}}"><i class="fa fa-diamond"></i> <span class="nav-label">Login</span></a></li>
+            <li class="{{currentRoute 'signup'}}"><a href="{{pathFor 'signup'}}"><i class="fa fa-diamond"></i> <span class="nav-label">Registrar</span></a></li>
+            {{> publicmenu }}
 </template>

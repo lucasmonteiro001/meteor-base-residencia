@@ -1,6 +1,4 @@
 import {FlowRouter} from 'meteor/kadira:flow-router';
-import '../../../ui/public/teste';
-import '../../../ui/public/teste0';
 import '../../../ui/public/login';
 import '../../../ui/public/recover-password';
 import '../../../ui/public/reset-password';

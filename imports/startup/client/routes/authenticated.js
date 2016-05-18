@@ -1,3 +1,4 @@
+import "../../../ui/authenticated/cliente/cliente";
 import {FlowRouter} from 'meteor/kadira:flow-router';
 import '../../../ui/authenticated/index';
 import  '../../../ui/authenticated/users';
@@ -45,4 +46,10 @@ authenticatedRoutes.route( '/users', {
         BlazeLayout.render( 'default', { yield: 'users' } );
         console.log('rota: users');
     }
+});
+authenticatedRoutes.route( '/cliente', {
+	name: 'cliente',
+	action() {
+		BlazeLayout.render( 'default', { yield: 'cliente' } );
+	} 
 });

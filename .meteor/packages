@@ -45,3 +45,7 @@ meteortoys:allthings
 kadira:flow-router
 kadira:blaze-layout
 cottz:flow-router-auth
+twbs:bootstrap
+fortawesome:fontawesome
+jquery
+less
