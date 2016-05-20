@@ -33,4 +33,9 @@ Cliente_Schema = new SimpleSchema({
 
 Cliente.attachSchema( Cliente_Schema );
 
-
+// Deny all client-side updates on the Cliente collection
+Cliente.deny({
+    insert() { return true; },
+    update() { return true; },
+    remove() { return true; },
+});

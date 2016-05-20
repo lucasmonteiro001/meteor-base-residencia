@@ -126,11 +126,8 @@ Template.clienteView.events({
 
     'click #linkExcluir' (event, template) {
 
-        var id = $(event.target).data('value');
-
-        console.log("Evento Jquery"+$(event.target));
-        console.log("ID:"+id);
-        console.log("Event Puro:"+event);
+        var sel = event.target;
+        var id = sel.getAttribute('value');
 
         Meteor.call('cliente.delete',id, (error) => {
             if (error) {
