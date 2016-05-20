@@ -5,7 +5,7 @@ Meteor.publish( 'cliente', function(){
 
     if ( user ) {
         var data = [
-            Cliente.find( { "userId": user } )
+            Cliente.find( )
         ];
     }
 

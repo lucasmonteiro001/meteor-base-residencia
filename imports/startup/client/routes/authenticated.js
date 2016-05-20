@@ -53,3 +53,23 @@ authenticatedRoutes.route( '/cliente', {
 		BlazeLayout.render( 'default', { yield: 'cliente' } );
 	} 
 });
+authenticatedRoutes.route( '/clienteAdd', {
+    name: 'clienteAdd',
+    action() {
+        BlazeLayout.render( 'default', { yield: 'clienteAdd' } );
+    }
+});
+
+authenticatedRoutes.route( '/clienteEdit/:_id', {
+    name: 'clienteEdit',
+    action() {
+        BlazeLayout.render( 'default', { yield: 'clienteEdit'} );
+    }
+});
+
+authenticatedRoutes.route( '/clienteView/:_id', {
+    name: 'clienteView',
+    action() {
+        BlazeLayout.render( 'default', { yield: 'clienteView'} );
+    }
+});

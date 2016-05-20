@@ -13,5 +13,18 @@ Meteor.methods({
                 console.log( error );
             }
         });
-    }
+    },
+    'cliente.update' ( id,dataObj ) {
+
+        check(id, String);
+        check(dataObj,{nome: String, endereco: String, telefone: String, Email: String});
+
+        Cliente.update( id,{
+            $set: { nome: dataObj.nome, endereco: dataObj.endereco, telefone: dataObj.telefone, Email: dataObj.Email },
+        });
+    },
+    'cliente.delete'(id) {
+        check(id, String);        
+        Cliente.remove(id);
+    },
 });
