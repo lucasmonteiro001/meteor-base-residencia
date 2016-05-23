@@ -1,4 +1,5 @@
 import "../../../ui/authenticated/cliente/cliente";
+import "../../../ui/authenticated/cliente/cliente";
 import {FlowRouter} from 'meteor/kadira:flow-router';
 import '../../../ui/authenticated/index';
 import  '../../../ui/authenticated/users';

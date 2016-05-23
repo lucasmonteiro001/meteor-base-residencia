@@ -1,7 +1,7 @@
 import {Template} from 'meteor/templating';
 import './cliente.html';
 import '../../globals/page-heading.html';
-import { Cliente } from '../../../api/cliente/cliente.js'
+import {Cliente} from '../../../api/cliente/cliente.js'
 import {FlowRouter} from 'meteor/kadira:flow-router';
 
 
@@ -14,17 +14,13 @@ Template.cliente.onCreated(() => {
 });
 
 
-
-Template.cliente.helpers({
-
-});
+Template.cliente.helpers({});
 
 Template.clienteAdd.onCreated(() => {
 
     //Faz alguma coisa ao criar o template de inserção
 
 });
-
 
 
 Template.clienteAdd.events({
@@ -36,61 +32,57 @@ Template.clienteAdd.events({
         template = Template.instance();
 
 
+        event.preventDefault();
 
-            event.preventDefault();
+        const clienteData = {
+            userId: '',
+            nome: template.find('[id="nome"]').value.trim(),
+            endereco: template.find('[id="endereco"]').value.trim(),
+            telefone: template.find('[id="telefone"]').value.trim(),
+            Email: template.find('[id="Email"]').value.trim()
+        };
 
-            const clienteData = {
-                nome: template.find('[id="nome"]').value.trim(),
-                endereco: template.find('[id="endereco"]').value.trim(),
-                telefone: template.find('[id="telefone"]').value.trim(),
-                Email: template.find('[id="Email"]').value.trim(),
-               userId: ''
-            };
+        Meteor.call('cliente.insert', clienteData, (error) => {
+            if (error) {
+                alert(error.reason);
+            } else {
 
-                Meteor.call('cliente.insert', clienteData, (error) => {
-                    if (error) {
-                        alert(error.reason);
-                    } else {
-                        template.find('form').reset();
-                    }
-                });
-
-            FlowRouter.go('cliente');
-
-        }
+                FlowRouter.go('cliente');
+            }
+        });
 
 
+    }
 
 
 });
 
-var updateFields = function(template) {
+var updateFields = function (template) {
 
     var id = FlowRouter.getParam('_id');
     const clientes = Cliente.findOne({_id: id});
-    if (clientes) {
-        template.clienteNome = clientes.nome;
+    if (clientes && template.view.isRendered) {
+        template.find('[id="nomeObjeto"]').textContent = clientes.nome;
+        template.find('[id="bc-nomeObjeto"]').textContent = clientes.nome;
         template.find('[id="nome"]').value = clientes.nome;
         template.find('[id="endereco"]').value = clientes.endereco;
         template.find('[id="telefone"]').value = clientes.telefone;
         template.find('[id="Email"]').value = clientes.Email;
-
     }
 
 };
 
-var updateSpans = function(template) {
+var updateSpans = function (template) {
 
     var id = FlowRouter.getParam('_id');
     const clientes = Cliente.findOne({_id: id});
-    if (clientes) {
-
-        $("#nomeObjeto").text(clientes.nome);
-        $("#bc-nomeObjeto").text(clientes.nome);
-        $("#nome").text(clientes.nome);
-        $("#endereco").text(clientes.endereco);
-        $("#telefone").text(clientes.telefone);
-        $("#Email").text(clientes.Email);
+    if (clientes && template.view.isRendered) {
+        template.find('[id="nomeObjeto"]').textContent = clientes.nome;
+        template.find('[id="bc-nomeObjeto"]').textContent = clientes.nome;
+        template.find('[id="nome"]').textContent = clientes.nome;
+        template.find('[id="endereco"]').textContent = clientes.endereco;
+        template.find('[id="telefone"]').textContent = clientes.telefone;
+        template.find('[id="Email"]').textContent = clientes.Email;
 
     }
 
@@ -129,7 +121,7 @@ Template.clienteView.events({
         var sel = event.target;
         var id = sel.getAttribute('value');
 
-        Meteor.call('cliente.delete',id, (error) => {
+        Meteor.call('cliente.delete', id, (error) => {
             if (error) {
                 alert(error.reason);
             } else {
@@ -141,17 +133,14 @@ Template.clienteView.events({
     }
 
 
-
-
 });
-
 
 
 Template.clienteEdit.onCreated(() => {
 
     template = Template.instance();
-    
-    
+
+
     Meteor.subscribe('cliente');
 
 });
@@ -164,9 +153,9 @@ Template.clienteEdit.onRendered(() => {
 Template.clienteEdit.helpers({
     clienteID() {
         return FlowRouter.getParam('_id');
-    },    
+    },
     clientes() {
-        
+
         updateFields(Template.instance());
     }
 });
@@ -176,9 +165,8 @@ Template.clienteEdit.events({
     //Eventos do template de inserção
 
     'submit form' (event, template) {
-        
-        template = Template.instance();
 
+        template = Template.instance();
 
 
         event.preventDefault();
@@ -190,11 +178,11 @@ Template.clienteEdit.events({
             Email: template.find('[id="Email"]').value.trim()
         };
 
-        Meteor.call('cliente.update',id, clienteData, (error) => {
+        Meteor.call('cliente.update', id, clienteData, (error) => {
             if (error) {
                 alert(error.reason);
             } else {
-                FlowRouter.go('/clienteView/'+id);
+                FlowRouter.go('/clienteView/' + id);
             }
         });
 
@@ -202,11 +190,7 @@ Template.clienteEdit.events({
     }
 
 
-
-
 });
-
-
 
 
 Template.clienteList.onCreated(() => {
@@ -214,13 +198,12 @@ Template.clienteList.onCreated(() => {
     Meteor.subscribe('cliente');
 
 
-
 });
 
 Template.clienteList.helpers({
     clientes() {
         const clientes = Cliente.find();
-        if ( clientes ) {
+        if (clientes) {
             return clientes;
         }
     },
@@ -233,10 +216,10 @@ Template.clienteList.helpers({
             showColumnToggles: true,
             multiColumnSort: true,
             fields: [
-                {key:'nome', label:'Nome', tmpl: Template.nomeTmpl},
-                {key:'endereco', label:'Endereço'},
-                {key:'telefone', label:'Telefone'},
-                {key:'Email', label:'Email'}
+                {key: 'nome', label: 'Informe um nome', tmpl: Template.clienteTmpl},
+                {key: 'endereco', label: 'Informe o Endereço'},
+                {key: 'telefone', label: 'Telefone/Cel:'},
+                {key: 'Email', label: 'Meu Email'}
             ]
         };
     }

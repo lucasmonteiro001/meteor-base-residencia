@@ -4,11 +4,6 @@ import { Mongo } from 'meteor/mongo';
 export const Cliente = new Mongo.Collection('cliente');
 
 Cliente_Schema = new SimpleSchema({
-    "nome": {
-        type: String,
-        defaultValue: "",
-        label: "Informe um nome"
-    },
     "endereco": {
         type: String,
         defaultValue: "",
@@ -18,6 +13,11 @@ Cliente_Schema = new SimpleSchema({
         type: String,
         defaultValue: "",
         label: "Telefone/Cel:"
+    },
+    "nome": {
+        type: String,
+        defaultValue: "",
+        label: "Informe um nome"
     },
     "Email": {
         type: String,

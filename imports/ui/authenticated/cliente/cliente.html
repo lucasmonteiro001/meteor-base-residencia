@@ -33,25 +33,20 @@
 
 
                         <div class="form-group">
+                            <label class="col-md-2 control-label" for="telefone">Telefone/Cel:</label>
+                            <div class="col-md-10">
+                                <input type="text" id="telefone" name="telefone" class="form-control">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
                             <label class="col-md-2 control-label" for="nome">Informe um nome</label>
                             <div class="col-md-10">
                                 <input type="text" id="nome" name="nome" class="form-control">
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="col-md-2 control-label" for="endereco">Informe o Endere�o</label>
-                            <div class="col-md-10">
-                                <textarea class="form-control" rows="7" id="endereco" name="endereco"></textarea>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-md-2 control-label" for="telefone">Telefone/Cel:</label>
-                            <div class="col-md-10">
-                                <input type="text" id="telefone" name="telefone" class="form-control">
-                            </div>
-                        </div>
 
                         <div class="form-group">
                             <label class="col-md-2 control-label" for="Email">Meu Email</label>
@@ -59,6 +54,15 @@
                                 <input type="text" id="Email" name="Email" class="form-control">
                             </div>
                         </div>
+
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="endereco">Informe o Endereço</label>
+                            <div class="col-md-10">
+                                <textarea class="form-control" rows="7" id="endereco" name="endereco"></textarea>
+                            </div>
+                        </div>
+
 
                     </div>
                 </div>
@@ -113,12 +117,6 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="col-md-2 control-label" for="endereco">Informe o Endere�o</label>
-                            <div class="col-md-10">
-                                <textarea class="form-control" rows="7" id="endereco" name="endereco"></textarea>
-                            </div>
-                        </div>
 
                         <div class="form-group">
                             <label class="col-md-2 control-label" for="telefone">Telefone/Cel:</label>
@@ -126,6 +124,15 @@
                                 <input type="text" id="telefone" name="telefone" class="form-control">
                             </div>
                         </div>
+
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="endereco">Informe o Endereço</label>
+                            <div class="col-md-10">
+                                <textarea class="form-control" rows="7" id="endereco" name="endereco"></textarea>
+                            </div>
+                        </div>
+
 
                         <div class="form-group">
                             <label class="col-md-2 control-label" for="Email">Meu Email</label>
@@ -197,44 +204,46 @@
 
 
     <div class="wrapper wrapper-content white-bg animated fadeInRight" style="padding-bottom:10px;">
-        <form class="form-horizontal row-border" id="userForm" data-toggle="validator" role="form">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel-body">
+        <div class="row form-horizontal row-border">
+            <div class="col-lg-12">
+                <div class="panel-body">
 
 
-                        <div class="form-group">
-                            <label class="col-md-2 control-label" for="nome">Informe um nome</label>
-                            <div class="col-md-10">
-                                <span id="nome"> </span>
-                            </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="nome">Informe um nome</label>
+                        <div class="col-md-10">
+                            <span id="nome"> </span>
                         </div>
-
-                        <div class="form-group">
-                            <label class="col-md-2 control-label" for="endereco">Informe o Endere�o</label>
-                            <div class="col-md-10">
-                                <span id="endereco"> </span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-md-2 control-label" for="telefone">Telefone/Cel:</label>
-                            <div class="col-md-10">
-                                <span id="telefone"> </span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-md-2 control-label" for="Email">Meu Email</label>
-                            <div class="col-md-10">
-                                <span id="Email"> </span>
-                            </div>
-                        </div>
-
                     </div>
+
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="endereco">Informe um endereco</label>
+                        <div class="col-md-10">
+                            <span id="endereco"> </span>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="Email">Informe um Email</label>
+                        <div class="col-md-10">
+                            <span id="Email"> </span>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="telefone">Informe um telefone</label>
+                        <div class="col-md-10">
+                            <span id="telefone"> </span>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
-        </form>
+        </div>
     </div>
 
 
@@ -245,6 +254,6 @@
     {{> reactiveTable settings=settings}}
 </template>
 
-<template name="nomeTmpl">
+<template name="clienteTmpl">
     <a href="{{pathFor 'clienteView'}}/{{_id}}">  {{nome}} </a>
 </template>
