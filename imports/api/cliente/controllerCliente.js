@@ -1,6 +1,6 @@
 import {Cliente} from './cliente'
 
-export class controllerCliente {
+class controllerCliente {
 
     constructor() {
         console.log("Iniciou...");
@@ -56,3 +56,4 @@ export class controllerCliente {
 }
 
 
+export const CtrlCliente = new controllerCliente();

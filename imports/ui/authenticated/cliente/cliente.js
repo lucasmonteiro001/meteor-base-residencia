@@ -2,11 +2,8 @@ import {Template} from 'meteor/templating';
 import './cliente.html';
 import '../../globals/page-heading.html';
 import {FlowRouter} from 'meteor/kadira:flow-router';
-import {controllerCliente} from '../../../api/cliente/controllerCliente.js'
+import {CtrlCliente} from '../../../api/cliente/controllerCliente.js'
 
-let template;
-
-let clienteCtrl = new controllerCliente();
 
 Template.cliente.onCreated(() => {
     //Faz alguma coisa ao criar o template
@@ -33,7 +30,7 @@ Template.clienteAdd.events({
             Email: template.find('[id="Email"]').value.trim()
         };
 
-        clienteCtrl.insert(clienteData, (erro, data) => {
+        CtrlCliente.insert(clienteData, (erro, data) => {
             if (erro) {
                 console.log(erro.reason);
             } else {
@@ -49,7 +46,7 @@ Template.clienteAdd.events({
 var updateFields = function (template) {
 
     var id = FlowRouter.getParam('_id');
-    const clientes = clienteCtrl.getCliente({_id: id});
+    const clientes = CtrlCliente.getCliente({_id: id});
     if (clientes && template.view.isRendered) {
         template.find('[id="nomeObjeto"]').textContent = clientes.nome;
         template.find('[id="bc-nomeObjeto"]').textContent = clientes.nome;
@@ -64,7 +61,7 @@ var updateFields = function (template) {
 var updateSpans = function (template) {
 
     var id = FlowRouter.getParam('_id');
-    const clientes = clienteCtrl.getCliente({_id: id});
+    const clientes = CtrlCliente.getCliente({_id: id});
     if (clientes && template.view.isRendered) {
         template.find('[id="nomeObjeto"]').textContent = clientes.nome;
         template.find('[id="bc-nomeObjeto"]').textContent = clientes.nome;
@@ -107,7 +104,7 @@ Template.clienteView.events({
     'click #linkExcluir' (event, template) {
         var sel = event.target;
         var id = sel.getAttribute('value');
-        clienteCtrl.delete(id, (erro, data) => {
+        CtrlCliente.delete(id, (erro, data) => {
             if (erro) {
                 console.log(erro.reason);
             } else {
@@ -152,7 +149,7 @@ Template.clienteEdit.events({
             Email: template.find('[id="Email"]').value.trim()
         };
 
-        clienteCtrl.update(id, clienteData, (erro, data) => {
+        CtrlCliente.update(id, clienteData, (erro, data) => {
             if (erro) {
                 console.log(erro.reason);
             } else {
@@ -170,11 +167,11 @@ Template.clienteList.onCreated(() => {
 
 Template.clienteList.helpers({
     clientes() {
-        clienteCtrl.getClientes();
+        CtrlCliente.getClientes();
     },
     'settings': function () {
         return {
-            collection: clienteCtrl.getCollection(),
+            collection: CtrlCliente.getCollection(),
             rowsPerPage: 10,
             showFilter: true,
             showRowCount: true,

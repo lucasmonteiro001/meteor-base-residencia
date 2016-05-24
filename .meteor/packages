@@ -50,5 +50,3 @@ fortawesome:fontawesome
 jquery
 less
 arillo:flow-router-helpers
-sanjo:jasmine
-velocity:html-reporter
