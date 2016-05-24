@@ -9,6 +9,7 @@ aldeed:schema-deny@1.0.1
 aldeed:schema-index@1.0.1
 aldeed:simple-schema@1.5.3
 allow-deny@1.0.4
+amplify@1.0.0
 anti:i18n@0.4.3
 arillo:flow-router-helpers@0.5.1
 aslagle:reactive-table@0.8.29
@@ -113,6 +114,7 @@ reactive-var@1.0.9
 reload@1.1.8
 retry@1.0.7
 routepolicy@1.0.10
+sanjo:jasmine@1.0.1
 service-configuration@1.0.9
 session@1.1.5
 sha@1.0.7
@@ -130,6 +132,8 @@ twbs:bootstrap@3.3.6
 ui@1.0.11
 underscore@1.0.8
 url@1.0.9
+velocity:html-reporter@0.10.1
+velocity:reports@1.0.0
 webapp@1.2.8
 webapp-hashing@1.0.9
 xolvio:backdoor@0.2.0

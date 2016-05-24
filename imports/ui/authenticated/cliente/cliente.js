@@ -1,39 +1,30 @@
 import {Template} from 'meteor/templating';
 import './cliente.html';
 import '../../globals/page-heading.html';
-import {Cliente} from '../../../api/cliente/cliente.js'
 import {FlowRouter} from 'meteor/kadira:flow-router';
-
+import {controllerCliente} from '../../../api/cliente/controllerCliente.js'
 
 let template;
 
+let clienteCtrl = new controllerCliente();
+
 Template.cliente.onCreated(() => {
-
     //Faz alguma coisa ao criar o template
-
 });
-
 
 Template.cliente.helpers({});
 
 Template.clienteAdd.onCreated(() => {
-
     //Faz alguma coisa ao criar o template de inserção
-
 });
 
 
 Template.clienteAdd.events({
 
     //Eventos do template de inserção
-
     'submit form' (event, template) {
-
         template = Template.instance();
-
-
         event.preventDefault();
-
         const clienteData = {
             userId: '',
             nome: template.find('[id="nome"]').value.trim(),
@@ -42,16 +33,13 @@ Template.clienteAdd.events({
             Email: template.find('[id="Email"]').value.trim()
         };
 
-        Meteor.call('cliente.insert', clienteData, (error) => {
-            if (error) {
-                alert(error.reason);
+        Meteor.call('cliente.insert', clienteData, (erro, result) => {
+            if (erro) {
+                console.log(erro.reason);
             } else {
-
-                FlowRouter.go('cliente');
+                FlowRouter.go('/clienteView/' + result);
             }
         });
-
-
     }
 
 
@@ -60,7 +48,7 @@ Template.clienteAdd.events({
 var updateFields = function (template) {
 
     var id = FlowRouter.getParam('_id');
-    const clientes = Cliente.findOne({_id: id});
+    const clientes = clienteCtrl.getCliente({_id: id});
     if (clientes && template.view.isRendered) {
         template.find('[id="nomeObjeto"]').textContent = clientes.nome;
         template.find('[id="bc-nomeObjeto"]').textContent = clientes.nome;
@@ -75,7 +63,7 @@ var updateFields = function (template) {
 var updateSpans = function (template) {
 
     var id = FlowRouter.getParam('_id');
-    const clientes = Cliente.findOne({_id: id});
+    const clientes = clienteCtrl.getCliente({_id: id});
     if (clientes && template.view.isRendered) {
         template.find('[id="nomeObjeto"]').textContent = clientes.nome;
         template.find('[id="bc-nomeObjeto"]').textContent = clientes.nome;
@@ -115,21 +103,16 @@ Template.clienteView.helpers({
 Template.clienteView.events({
 
     //Eventos do template de inserção
-
     'click #linkExcluir' (event, template) {
-
         var sel = event.target;
         var id = sel.getAttribute('value');
-
-        Meteor.call('cliente.delete', id, (error) => {
-            if (error) {
-                alert(error.reason);
+        clienteCtrl.delete(id, (erro, data) => {
+            if (erro) {
+                console.log(erro.reason);
             } else {
                 FlowRouter.go('cliente');
             }
         });
-
-
     }
 
 
@@ -137,17 +120,12 @@ Template.clienteView.events({
 
 
 Template.clienteEdit.onCreated(() => {
-
     template = Template.instance();
-
-
     Meteor.subscribe('cliente');
-
 });
 
 Template.clienteEdit.onRendered(() => {
     updateFields(Template.instance());
-
 });
 
 Template.clienteEdit.helpers({
@@ -163,12 +141,7 @@ Template.clienteEdit.helpers({
 Template.clienteEdit.events({
 
     //Eventos do template de inserção
-
     'submit form' (event, template) {
-
-        template = Template.instance();
-
-
         event.preventDefault();
         const id = FlowRouter.getParam('_id');
         const clienteData = {
@@ -178,38 +151,29 @@ Template.clienteEdit.events({
             Email: template.find('[id="Email"]').value.trim()
         };
 
-        Meteor.call('cliente.update', id, clienteData, (error) => {
-            if (error) {
-                alert(error.reason);
+        clienteCtrl.update(id, clienteData, (erro, data) => {
+            if (erro) {
+                console.log(erro.reason);
             } else {
                 FlowRouter.go('/clienteView/' + id);
             }
+
         });
-
-
     }
-
-
 });
 
 
 Template.clienteList.onCreated(() => {
-
     Meteor.subscribe('cliente');
-
-
 });
 
 Template.clienteList.helpers({
     clientes() {
-        const clientes = Cliente.find();
-        if (clientes) {
-            return clientes;
-        }
+        clienteCtrl.getClientes();
     },
     'settings': function () {
         return {
-            collection: Cliente,
+            collection: clienteCtrl.getCollection(),
             rowsPerPage: 10,
             showFilter: true,
             showRowCount: true,
