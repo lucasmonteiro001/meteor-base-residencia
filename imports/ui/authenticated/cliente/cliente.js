@@ -33,12 +33,13 @@ Template.clienteAdd.events({
             Email: template.find('[id="Email"]').value.trim()
         };
 
-        Meteor.call('cliente.insert', clienteData, (erro, result) => {
+        clienteCtrl.insert(clienteData, (erro, data) => {
             if (erro) {
                 console.log(erro.reason);
             } else {
-                FlowRouter.go('/clienteView/' + result);
+                FlowRouter.go('/clienteView/' + data);
             }
+
         });
     }
 

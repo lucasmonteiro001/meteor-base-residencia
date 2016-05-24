@@ -6,7 +6,7 @@ Meteor.methods({
 
         dataObj.userId = this.userId;
 
-        check(dataObj, {nome: String, endereco: String, telefone: String, Email: String, userId: String});
+        check(dataObj, Cliente.simpleSchema());
 
         return Cliente.insert(dataObj, (error) => {
             if (error) {
@@ -17,7 +17,11 @@ Meteor.methods({
     'cliente.update' (id, dataObj) {
 
         check(id, String);
-        check(dataObj, {nome: String, endereco: String, telefone: String, Email: String});
+
+        //Resgistra o último usuário que alterou o objeto no banco
+        dataObj.userId = this.userId;
+
+        check(dataObj, Cliente.simpleSchema());
 
         Cliente.update(id, {
             $set: {nome: dataObj.nome, endereco: dataObj.endereco, telefone: dataObj.telefone, Email: dataObj.Email},
