@@ -4,14 +4,15 @@
   "description": "Aplicativo de pesquisa",
   "scripts": {
     "start": "meteor --settings settings-development.json",
-    "test": "meteor test --driver-package practicalmeteor:mocha --port 5000",
-    "test2": "mocha ./tests --compilers js:babel-register",
+    "test2": "meteor test --driver-package practicalmeteor:mocha --port 5000",
+    "test": "mocha ./tests/cliente --compilers js:babel-register",
     "chimp-watch": "chimp --ddp=http://localhost:3000 --watch --mocha --path=tests",
     "chimp-test": "chimp --ddp=http://localhost:3000 --mocha --path=tests",
     "staging": "meteor deploy staging.meteor.com --settings settings-development.json",
     "production": "meteor deploy production.meteor.com --settings settings-production.json"
   },
   "devDependencies": {
+    "babel-root-slash-import": "^1.0.0",
     "chai": "^3.5.0",
     "chimp": "^0.33.1",
     "faker": "^3.1.0",

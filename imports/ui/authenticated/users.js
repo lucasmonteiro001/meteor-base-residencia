@@ -4,8 +4,6 @@
 import { Template } from 'meteor/templating';
 import { Users } from '../../api/users/users';
 import './users.html';
-import '../globals/page-heading.html';
-
 let template;
 
 Template.users.onCreated(() => {

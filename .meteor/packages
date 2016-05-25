@@ -50,3 +50,5 @@ fortawesome:fontawesome
 jquery
 less
 arillo:flow-router-helpers
+avital:mocha
+themeteorchef:jquery-validation

@@ -3,7 +3,7 @@ import {Cliente} from './cliente'
 class controllerCliente {
 
     constructor() {
-        console.log("Iniciou...");
+        //console.log("Iniciou...");
     }
 
     getClientes() {

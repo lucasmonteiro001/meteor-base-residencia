@@ -1,13 +1,12 @@
 import { Mongo } from 'meteor/mongo';
 
-
 export const Cliente = new Mongo.Collection('cliente');
 
 Cliente_Schema = new SimpleSchema({
     "endereco": {
         type: String,
         defaultValue: "",
-        label: "Informe o Endere�o"
+        label: "Informe o Endereço"
     },
     "telefone": {
         type: String,

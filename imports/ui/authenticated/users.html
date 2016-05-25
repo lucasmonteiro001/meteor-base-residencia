@@ -1,7 +1,19 @@
 <template name="users">
     {{#if isInRole 'administrador'}}
 
-        {{> pageHeading title='Gerenciar Usúarios' }}
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-8">
+                <h2> Gerenciar Usúarios </h2>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="{{pathFor route='index'}}">Página Principal</a>
+                    </li>
+                    <li class="active">
+                        <strong> Gerenciar Usúarios </strong>
+                    </li>
+                </ol>
+            </div>
+        </div>
 
         <div class="wrapper wrapper-content white-bg animated fadeInRight">
             <div class="row">
