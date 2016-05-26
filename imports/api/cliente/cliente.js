@@ -1,13 +1,12 @@
 import { Mongo } from 'meteor/mongo';
 
-
 export const Cliente = new Mongo.Collection('cliente');
 
 Cliente_Schema = new SimpleSchema({
     "endereco": {
         type: String,
         defaultValue: "",
-        label: "Informe o Endere�o"
+        label: "Informe o Endereço"
     },
     "telefone": {
         type: String,
@@ -33,9 +32,16 @@ Cliente_Schema = new SimpleSchema({
 
 Cliente.attachSchema( Cliente_Schema );
 
+
+//##################################################
+//############# Definições de Segurança ############
+//##################################################
+
 // Deny all client-side updates on the Cliente collection
 Cliente.deny({
     insert() { return true; },
     update() { return true; },
     remove() { return true; },
 });
+
+

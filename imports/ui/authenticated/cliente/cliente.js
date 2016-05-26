@@ -1,18 +1,69 @@
 import {Template} from 'meteor/templating';
-import './cliente.html';
-import '../../globals/page-heading.html';
 import {FlowRouter} from 'meteor/kadira:flow-router';
 import {CtrlCliente} from '../../../api/cliente/controllerCliente.js'
+import {Message} from '../../utils/ui_utils';
+import './cliente.html';
 
+let template;
 
 Template.cliente.onCreated(() => {
-    //Faz alguma coisa ao criar o template
+    Meteor.subscribe('cliente');
+    template = Template.instance();
+    template.canInsertCliente = new ReactiveVar(false);
 });
 
-Template.cliente.helpers({});
+Template.cliente.onRendered(() => {
+    template = Template.instance();
+    CtrlCliente.checkIfCanUserInsert(template.canInsertCliente);
+    template.canUserInsert = template.canInsertCliente.get();
+    console.log("canUserInsert:" + template.canUserInsert);
+});
 
-Template.clienteAdd.onCreated(() => {
-    //Faz alguma coisa ao criar o template de inserção
+Template.cliente.helpers({
+    'canUserInsert': () => {
+        template = Template.instance();
+        CtrlCliente.checkIfCanUserInsert(template.canInsertCliente);
+        return template.canInsertCliente.get();
+    }
+});
+
+Template.clienteAdd.onRendered(() => {
+    //Jquery Validation - https://jqueryvalidation.org/validate
+    $('#userForm').validate({
+        rules: {
+            nome: {
+                required: true
+            },
+            telefone: {
+                required: true
+            },
+            Email: {
+                required: true,
+                email: true
+            },
+            endereco: {
+                required: true
+            }
+
+        },
+        messages: {
+            Email: {
+                required: "É obrigado informar um email.",
+                email: "O email informado não é um email válido."
+            },
+            nome: {
+                required: "É obrigado informar um nome."
+            },
+            telefone: {
+                required: "É obrigado informar um telefone."
+            },
+            endereco: {
+                required: "É obrigado informar um endereço."
+            }
+        }
+    });
+
+
 });
 
 
@@ -21,6 +72,7 @@ Template.clienteAdd.events({
     //Eventos do template de inserção
     'submit form' (event, template) {
         template = Template.instance();
+
         event.preventDefault();
         const clienteData = {
             userId: '',
@@ -30,10 +82,12 @@ Template.clienteAdd.events({
             Email: template.find('[id="Email"]').value.trim()
         };
 
-        CtrlCliente.insert(clienteData, (erro, data) => {
-            if (erro) {
-                console.log(erro.reason);
+        CtrlCliente.insert(clienteData, (error, data) => {
+            if (error) {
+                Message.showErro(error);
+                //console.log(erro.reason);
             } else {
+                Message.showSuccessNotification("Cliente inserido com sucesso!");
                 FlowRouter.go('/clienteView/' + data);
             }
 
@@ -43,58 +97,45 @@ Template.clienteAdd.events({
 
 });
 
-var updateFields = function (template) {
-
-    var id = FlowRouter.getParam('_id');
-    const clientes = CtrlCliente.getCliente({_id: id});
-    if (clientes && template.view.isRendered) {
-        template.find('[id="nomeObjeto"]').textContent = clientes.nome;
-        template.find('[id="bc-nomeObjeto"]').textContent = clientes.nome;
-        template.find('[id="nome"]').value = clientes.nome;
-        template.find('[id="endereco"]').value = clientes.endereco;
-        template.find('[id="telefone"]').value = clientes.telefone;
-        template.find('[id="Email"]').value = clientes.Email;
-    }
-
-};
-
-var updateSpans = function (template) {
-
-    var id = FlowRouter.getParam('_id');
-    const clientes = CtrlCliente.getCliente({_id: id});
-    if (clientes && template.view.isRendered) {
-        template.find('[id="nomeObjeto"]').textContent = clientes.nome;
-        template.find('[id="bc-nomeObjeto"]').textContent = clientes.nome;
-        template.find('[id="nome"]').textContent = clientes.nome;
-        template.find('[id="endereco"]').textContent = clientes.endereco;
-        template.find('[id="telefone"]').textContent = clientes.telefone;
-        template.find('[id="Email"]').textContent = clientes.Email;
-
-    }
-
-}
-
-
 Template.clienteView.onCreated(() => {
     Meteor.subscribe('cliente');
-
+    template = Template.instance();
+    template.canUpdateCliente = new ReactiveVar(false);
+    template.canRemoveCliente = new ReactiveVar(false);
 });
 
 Template.clienteView.onRendered(() => {
     var id = FlowRouter.getParam('_id');
-    Template.instance().clienteNome = "";
-    Template.instance().clienteID = id;
-    updateSpans(Template.instance());
+    template = Template.instance();
+
+    CtrlCliente.checkIfCanUserUpdate(template.canUpdateCliente, id);
+    CtrlCliente.checkIfCanUserRemove(template.canRemoveCliente, id);
+
+    template.canUserUpdate = template.canUpdateCliente.get();
+    template.canUserRemove = template.canRemoveCliente.get();
+    template.canUserAccessActions = template.canUpdateCliente.get() || template.canRemoveCliente.get();
+
+    var dadosClientes = CtrlCliente.get({_id: id});
+    template.dadosDoCliente = dadosClientes;
+
 
 });
 
 Template.clienteView.helpers({
-    clienteID() {
-        return FlowRouter.getParam('_id');
+    'canUserUpdate': () => {
+        CtrlCliente.checkIfCanUserUpdate(template.canUpdateCliente, FlowRouter.getParam('_id'));
+        return template.canUpdateCliente.get()
     },
-    clientes() {
-
-        updateSpans(Template.instance());
+    'canUserRemove': () => {
+        CtrlCliente.checkIfCanUserRemove(template.canRemoveCliente, FlowRouter.getParam('_id'));
+        return template.canRemoveCliente.get();
+    },
+    'canUserAccessActions': () => {
+        return template.canRemoveCliente.get() || template.canUpdateCliente.get();
+    },
+    'dadosDoCliente': () => {
+        var idCliente = FlowRouter.getParam('_id');
+        return CtrlCliente.get({_id: idCliente});
     }
 });
 
@@ -104,13 +145,23 @@ Template.clienteView.events({
     'click #linkExcluir' (event, template) {
         var sel = event.target;
         var id = sel.getAttribute('value');
-        CtrlCliente.delete(id, (erro, data) => {
-            if (erro) {
-                console.log(erro.reason);
-            } else {
-                FlowRouter.go('cliente');
+
+        Message.showConfirmation("Remover o cliente?", "Não é possível recuperar um cliente removido!", "Sim, remover!", (erro, confirm) => {
+            if (confirm) {
+                CtrlCliente.remove(id, (error, data) => {
+                    if (error) {
+                        Message.showErro(error);
+                        //console.log(erro.reason);
+                    } else {
+                        FlowRouter.go('cliente');
+                        Message.showSuccessNotification("O Cliente foi removido com sucesso!");
+                    }
+                });
             }
+
         });
+
+
     }
 
 
@@ -123,16 +174,53 @@ Template.clienteEdit.onCreated(() => {
 });
 
 Template.clienteEdit.onRendered(() => {
-    updateFields(Template.instance());
+
+    var id = FlowRouter.getParam('_id');
+    var dadosClientes = CtrlCliente.get({_id: id});
+    Template.instance().dadosDoCliente = dadosClientes;
+
+
+    //Jquery Validation - https://jqueryvalidation.org/validate
+    $('#userForm').validate({
+        rules: {
+            nome: {
+                required: true
+            },
+            telefone: {
+                required: true
+            },
+            Email: {
+                required: true,
+                email: true
+            },
+            endereco: {
+                required: true
+            }
+
+        },
+        messages: {
+            Email: {
+                required: "É obrigado informar um email.",
+                email: "O email informado não é um email válido."
+            },
+            nome: {
+                required: "É obrigado informar um nome."
+            },
+            telefone: {
+                required: "É obrigado informar um telefone."
+            },
+            endereco: {
+                required: "É obrigado informar um endereço."
+            }
+        }
+    });
+
 });
 
 Template.clienteEdit.helpers({
-    clienteID() {
-        return FlowRouter.getParam('_id');
-    },
-    clientes() {
-
-        updateFields(Template.instance());
+    'dadosDoCliente': () => {
+        var idCliente = FlowRouter.getParam('_id');
+        return CtrlCliente.get({_id: idCliente});
     }
 });
 
@@ -149,10 +237,12 @@ Template.clienteEdit.events({
             Email: template.find('[id="Email"]').value.trim()
         };
 
-        CtrlCliente.update(id, clienteData, (erro, data) => {
-            if (erro) {
-                console.log(erro.reason);
+        CtrlCliente.update(id, clienteData, (error, data) => {
+            if (error) {
+                Message.showErro(error);
+                //console.log(erro.reason);
             } else {
+                Message.showSuccessNotification("O Cliente foi atualizado com sucesso!");
                 FlowRouter.go('/clienteView/' + id);
             }
 
@@ -166,9 +256,6 @@ Template.clienteList.onCreated(() => {
 });
 
 Template.clienteList.helpers({
-    clientes() {
-        CtrlCliente.getClientes();
-    },
     'settings': function () {
         return {
             collection: CtrlCliente.getCollection(),

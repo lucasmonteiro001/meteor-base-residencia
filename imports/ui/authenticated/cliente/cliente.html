@@ -1,15 +1,30 @@
 <template name="cliente">
-    {{> pageHeading title='Lista de clientes' }}
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-8">
+            <h2> Lista de clientes </h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{{pathFor route='index'}}">Página Principal</a>
+                </li>
+                <li class="active">
+                    <strong> Lista de Clientes </strong>
+                </li>
+            </ol>
+        </div>
+    </div>
 
     <div class="wrapper wrapper-content white-bg animated fadeInRight">
+
+{{#if canUserInsert}}
         <div class="row">
             <div class="col-lg-12">
                 <div class="pull-right btAdd">
-                    <a href="{{pathFor 'clienteAdd'}}" class="btn btn-primary">
-                        <i class="fa fa-plus-circle" aria-hidden="true"></i> Adicionar</a>
+                    <a href="{{pathFor 'clienteAdd'}}" id="insert" class="btn btn-primary" name="insert">
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i> Adicionar...</a>
                 </div>
             </div>
         </div>
+{{/if}}
 
         <div class="row">
             <div class="col-lg-12">
@@ -22,7 +37,19 @@
 </template>
 
 <template name="clienteAdd">
-    {{> pageHeading title='Cadastrar cliente' }}
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-8">
+            <h2> Cadastrar Cliente </h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{{pathFor route='index'}}">Página Principal</a>
+                </li>
+                <li class="active">
+                    <strong> Cadastrar Cliente </strong>
+                </li>
+            </ol>
+        </div>
+    </div>
 
 
     <div class="wrapper wrapper-content white-bg animated fadeInRight" style="padding-bottom:10px;">
@@ -31,6 +58,12 @@
                 <div class="col-lg-12">
                     <div class="panel-body">
 
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="nome">Informe um nome</label>
+                            <div class="col-md-10">
+                                <input type="text" id="nome" name="nome" class="form-control">
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <label class="col-md-2 control-label" for="telefone">Telefone/Cel:</label>
@@ -39,19 +72,10 @@
                             </div>
                         </div>
 
-
-                        <div class="form-group">
-                            <label class="col-md-2 control-label" for="nome">Informe um nome</label>
-                            <div class="col-md-10">
-                                <input type="text" id="nome" name="nome" class="form-control">
-                            </div>
-                        </div>
-
-
                         <div class="form-group">
                             <label class="col-md-2 control-label" for="Email">Meu Email</label>
                             <div class="col-md-10">
-                                <input type="text" id="Email" name="Email" class="form-control">
+                                <input type="email" id="Email" name="Email" class="form-control">
                             </div>
                         </div>
 
@@ -83,20 +107,19 @@
 
 
 <template name="clienteEdit">
-    {{ clientes }}
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-12">
-            <h2 id="nomeObjeto"></h2>
+            <h2> {{ dadosDoCliente.nome }}</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{pathFor route=home}}">Home</a>
+                    <a href="{{pathFor route='index'}}">Página Principal</a>
                 </li>
                 <li>
-                    <a href="{{pathFor route=cliente}}">Lista de clientes</a>
+                    <a href="{{pathFor route='cliente'}}">Lista de clientes</a>
                 </li>
 
                 <li class="active">
-                    <strong id="bc-nomeObjeto"></strong>
+                    <strong> {{ dadosDoCliente.nome }}</strong>
                 </li>
             </ol>
         </div>
@@ -113,7 +136,8 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label" for="nome">Informe um nome</label>
                             <div class="col-md-10">
-                                <input type="text" id="nome" name="nome" class="form-control">
+                                <input type="text" id="nome" name="nome" class="form-control"
+                                       value="{{ dadosDoCliente.nome }}">
                             </div>
                         </div>
 
@@ -121,23 +145,24 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label" for="telefone">Telefone/Cel:</label>
                             <div class="col-md-10">
-                                <input type="text" id="telefone" name="telefone" class="form-control">
+                                <input type="text" id="telefone" name="telefone" class="form-control"
+                                       value="{{ dadosDoCliente.telefone }}">
                             </div>
                         </div>
-
-
-                        <div class="form-group">
-                            <label class="col-md-2 control-label" for="endereco">Informe o Endereço</label>
-                            <div class="col-md-10">
-                                <textarea class="form-control" rows="7" id="endereco" name="endereco"></textarea>
-                            </div>
-                        </div>
-
 
                         <div class="form-group">
                             <label class="col-md-2 control-label" for="Email">Meu Email</label>
                             <div class="col-md-10">
-                                <input type="text" id="Email" name="Email" class="form-control">
+                                <input type="text" id="Email" name="Email" class="form-control"
+                                       value="{{ dadosDoCliente.Email }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="endereco">Informe o Endereço</label>
+                            <div class="col-md-10">
+                                <textarea class="form-control" rows="7" id="endereco"
+                                          name="endereco"> {{ dadosDoCliente.endereco }}</textarea>
                             </div>
                         </div>
 
@@ -148,7 +173,7 @@
                 <div class="col-lg-12">
                     <div class="pull-right btAdd">
                         <button type="submit" class="btn btn-primary">Salvar</button>
-                        <a href="{{pathFor 'clienteView'}}/{{clienteID}}" class="btn">Voltar</a>
+                        <a href="{{pathFor 'clienteView'}}/{{dadosDoCliente._id}}" class="btn">Voltar</a>
                     </div>
                 </div>
             </div>
@@ -160,20 +185,19 @@
 
 
 <template name="clienteView">
-    {{ clientes }}
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-8">
-            <h2 id="nomeObjeto"></h2>
+            <h2> {{ dadosDoCliente.nome }}</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{pathFor route=home}}">Home</a>
+                    <a href="{{pathFor route='index'}}">Página Principal</a>
                 </li>
                 <li>
-                    <a href="{{pathFor route=cliente}}">Lista de clientes</a>
+                    <a href="{{pathFor route='cliente'}}">Lista de clientes</a>
                 </li>
 
                 <li class="active">
-                    <strong id="bc-nomeObjeto"></strong>
+                    <strong> {{ dadosDoCliente.nome }}</strong>
                 </li>
             </ol>
         </div>
@@ -183,21 +207,30 @@
                     <i class="fa fa-arrow-left" aria-hidden="true"></i>
                     Voltar
                 </a>
+                {{#if canUserAccessActions}}
+
                 <div class="btn-group">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
                             aria-expanded="false">
                         Ações <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                        <li><a id="linkEdit" href="{{pathFor 'clienteEdit'}}/{{clienteID}}"><i
+
+                {{#if canUserUpdate}}
+                        <li><a id="linkEdit" href="{{pathFor 'clienteEdit'}}/{{dadosDoCliente._id}}" name="update"><i
                                 class="icon icon-pencil"></i>
                             Editar...</a></li>
+                {{/if}}
                         <li class="divider"></li>
-                        <li><a id="linkExcluir" href="#!" value="{{clienteID}}"><i class="icon icon-pencil"></i>
+                {{#if canUserRemove}}
+                        <li><a id="linkExcluir" href="#!" value="{{dadosDoCliente._id}}" name="remove"><i
+                                class="icon icon-pencil"></i>
                             Excluir...</a>
                         </li>
+                {{/if}}
                     </ul>
                 </div>
+                {{/if}}
             </div>
         </div>
     </div>
@@ -212,7 +245,7 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="nome">Informe um nome</label>
                         <div class="col-md-10">
-                            <span id="nome"> </span>
+                            <span id="nome">{{ dadosDoCliente.nome }} </span>
                         </div>
                     </div>
 
@@ -220,7 +253,7 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="endereco">Informe um endereco</label>
                         <div class="col-md-10">
-                            <span id="endereco"> </span>
+                            <span id="endereco"> {{ dadosDoCliente.endereco }} </span>
                         </div>
                     </div>
 
@@ -228,7 +261,7 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="Email">Informe um Email</label>
                         <div class="col-md-10">
-                            <span id="Email"> </span>
+                            <span id="Email"> {{ dadosDoCliente.Email }} </span>
                         </div>
                     </div>
 
@@ -236,7 +269,7 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="telefone">Informe um telefone</label>
                         <div class="col-md-10">
-                            <span id="telefone"> </span>
+                            <span id="telefone"> {{ dadosDoCliente.telefone }} </span>
                         </div>
                     </div>
 
