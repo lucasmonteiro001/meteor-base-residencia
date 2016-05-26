@@ -99,6 +99,7 @@ msavin:mongol@1.6.2
 npm-bcrypt@0.8.5
 npm-mongo@1.4.43
 observe-sequence@1.0.11
+ongoworks:security@2.0.1
 ordered-dict@1.0.7
 practicalmeteor:chai@2.1.0_1
 practicalmeteor:loglevel@1.2.0_2
