@@ -13,10 +13,7 @@ Template.cliente.onCreated(() => {
 });
 
 Template.cliente.onRendered(() => {
-    template = Template.instance();
     CtrlCliente.checkIfCanUserInsert(template.canInsertCliente);
-    template.canUserInsert = template.canInsertCliente.get();
-    console.log("canUserInsert:" + template.canUserInsert);
 });
 
 Template.cliente.helpers({
@@ -110,10 +107,6 @@ Template.clienteView.onRendered(() => {
 
     CtrlCliente.checkIfCanUserUpdate(template.canUpdateCliente, id);
     CtrlCliente.checkIfCanUserRemove(template.canRemoveCliente, id);
-
-    template.canUserUpdate = template.canUpdateCliente.get();
-    template.canUserRemove = template.canRemoveCliente.get();
-    template.canUserAccessActions = template.canUpdateCliente.get() || template.canRemoveCliente.get();
 
     var dadosClientes = CtrlCliente.get({_id: id});
     template.dadosDoCliente = dadosClientes;

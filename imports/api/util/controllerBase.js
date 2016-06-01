@@ -1,35 +1,32 @@
-import {Cliente} from './cliente'
-import {controllerBase} from '../util/controllerBase'
+export class controllerBase {
 
-class controllerClienteTwo extends controllerBase {
 
-}
-
-class controllerCliente {
-
-    constructor() {
-        //console.log("Iniciou...");
-
+    constructor(collection) {
+        this.myCollection = collection;
     }
 
     getAll() {
-        const clientes = Cliente.find();
-        if (clientes) {
-            return clientes;
+        const collectionData = this.myCollection.find();
+        if (collectionData) {
+            return collectionData;
         }
     };
 
     getCollection() {
-        return Cliente
+        return this.myCollection
 
     }
+
+getCollectionName() {
+    return this.myCollection._name;
+}
 
     get(id) {
-        return Cliente.findOne(id);
+        return this.myCollection.findOne(id);
     }
 
-    insert(clienteData, callback) {
-        Meteor.call('cliente.insert', clienteData, (error, result) => {
+    insert(collectionData, callback) {
+        Meteor.call(this.getCollectionName()+'.insert', collectionData, (error, result) => {
             if (error) {
                 callback(error, null)
             } else {
@@ -38,8 +35,8 @@ class controllerCliente {
         });
     }
 
-    update(id, clienteData, callback) {
-        Meteor.call('cliente.update', id, clienteData, (error) => {
+    update(id, collectionData, callback) {
+        Meteor.call(this.getCollectionName()+'.update', id, collectionData, (error) => {
             if (error) {
                 callback(error, null)
             } else {
@@ -50,7 +47,7 @@ class controllerCliente {
 
     remove(id, callback) {
 
-        Meteor.call('cliente.remove', id, (error) => {
+        Meteor.call(this.getCollectionName()+'.remove', id, (error) => {
             if (error) {
                 callback(error, null)
             } else {
@@ -66,7 +63,7 @@ class controllerCliente {
         } else {
             idToCheck = id;
         }
-        Meteor.call('user.can.cliente.remove', idToCheck, (error, result) => {
+        Meteor.call('user.can.'+this.getCollectionName()+'.remove', idToCheck, (error, result) => {
             if (error) {
                 console.log(error);
             } else {
@@ -76,7 +73,7 @@ class controllerCliente {
     }
 
     checkIfCanUserInsert(reactVar) {
-        Meteor.call('user.can.cliente.insert', (error, result) => {
+        Meteor.call('user.can.'+this.getCollectionName()+'.insert', (error, result) => {
             if (error) {
                 console.log(error);
             } else {
@@ -92,7 +89,7 @@ class controllerCliente {
         } else {
             idToCheck = id;
         }
-        Meteor.call('user.can.cliente.update', idToCheck, (error, result) => {
+        Meteor.call('user.can.'+this.getCollectionName()+'.update', idToCheck, (error, result) => {
             if (error) {
                 console.log(error);
             } else {
@@ -103,6 +100,4 @@ class controllerCliente {
 
 }
 
-export const CtrlCliente = new controllerClienteTwo(Cliente);
 
-console.log("NomeDaClasse:"+CtrlCliente.getCollectionName());

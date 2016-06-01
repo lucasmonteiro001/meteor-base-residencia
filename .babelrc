@@ -1,7 +1,4 @@
 {
-  "presets": ["es2015"],
-  "plugins": [
-    "babel-root-slash-import"
-  ]
-
+  "presets": ["meteor"],
+  "plugins": ["transform-class-properties"]
 }
