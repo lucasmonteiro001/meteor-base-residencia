@@ -3,6 +3,30 @@ export class controllerBase {
 
     constructor(collection) {
         this.myCollection = collection;
+        this.filter = {};
+
+        this.projection_list = {};
+
+        this.projection_edit = {};
+
+        this.projection_view = {};
+
+    }
+
+    setRoles(filter) {
+        this.filter = filter;
+    }
+
+    setProjectionView(projection) {
+        this.projection_view = projection;
+    }
+
+    setProjectionEdit(projection) {
+        this.projection_edit = projection;
+    }
+
+    setProjectionList(projection) {
+        this.projection_list = projection;
     }
 
     getAll() {
@@ -17,16 +41,40 @@ export class controllerBase {
 
     }
 
-getCollectionName() {
-    return this.myCollection._name;
-}
+    getCollectionName() {
+        return this.myCollection._name;
+    }
 
     get(id) {
         return this.myCollection.findOne(id);
     }
 
+    applySubscribe(template, acao,id="") {
+        let filterTmp = this.filter;
+        if(id != "") {
+            console.log("Id não-vazio");
+            filterTmp = {_id:id}
+        }
+            console.log(this.filter);
+        switch(acao) {
+            case 'list':
+                template.subscribe(this.getCollectionName(), filterTmp, this.projection_list);
+                break;
+            case 'view':
+                template.subscribe(this.getCollectionName(), filterTmp, this.projection_view);
+                break;
+            case 'edit':
+                template.subscribe(this.getCollectionName(), filterTmp, this.projection_edit);
+                break;
+            default:
+                template.subscribe(this.getCollectionName(), filterTmp, this.projection_list);
+        }
+
+
+    }
+
     insert(collectionData, callback) {
-        Meteor.call(this.getCollectionName()+'.insert', collectionData, (error, result) => {
+        Meteor.call(this.getCollectionName() + '.insert', collectionData, (error, result) => {
             if (error) {
                 callback(error, null)
             } else {
@@ -36,7 +84,7 @@ getCollectionName() {
     }
 
     update(id, collectionData, callback) {
-        Meteor.call(this.getCollectionName()+'.update', id, collectionData, (error) => {
+        Meteor.call(this.getCollectionName() + '.update', id, collectionData, (error) => {
             if (error) {
                 callback(error, null)
             } else {
@@ -47,7 +95,7 @@ getCollectionName() {
 
     remove(id, callback) {
 
-        Meteor.call(this.getCollectionName()+'.remove', id, (error) => {
+        Meteor.call(this.getCollectionName() + '.remove', id, (error) => {
             if (error) {
                 callback(error, null)
             } else {
@@ -63,7 +111,7 @@ getCollectionName() {
         } else {
             idToCheck = id;
         }
-        Meteor.call('user.can.'+this.getCollectionName()+'.remove', idToCheck, (error, result) => {
+        Meteor.call('user.can.' + this.getCollectionName() + '.remove', idToCheck, (error, result) => {
             if (error) {
                 console.log(error);
             } else {
@@ -73,7 +121,7 @@ getCollectionName() {
     }
 
     checkIfCanUserInsert(reactVar) {
-        Meteor.call('user.can.'+this.getCollectionName()+'.insert', (error, result) => {
+        Meteor.call('user.can.' + this.getCollectionName() + '.insert', (error, result) => {
             if (error) {
                 console.log(error);
             } else {
@@ -89,7 +137,7 @@ getCollectionName() {
         } else {
             idToCheck = id;
         }
-        Meteor.call('user.can.'+this.getCollectionName()+'.update', idToCheck, (error, result) => {
+        Meteor.call('user.can.' + this.getCollectionName() + '.update', idToCheck, (error, result) => {
             if (error) {
                 console.log(error);
             } else {

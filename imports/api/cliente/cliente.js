@@ -37,6 +37,9 @@ Cliente.attachSchema( Cliente_Schema );
 //############# Definições de Segurança ############
 //##################################################
 
+//Grupos que podem realizar operações no banco de dados
+rolesCliente = ['administrador','comum'];
+
 // Deny all client-side updates on the Cliente collection
 Cliente.deny({
     insert() { return true; },

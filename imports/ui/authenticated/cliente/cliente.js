@@ -7,12 +7,13 @@ import './cliente.html';
 let template;
 
 Template.cliente.onCreated(() => {
-    Meteor.subscribe('cliente');
     template = Template.instance();
+    CtrlCliente.applySubscribe(template,'list');
     template.canInsertCliente = new ReactiveVar(false);
 });
 
 Template.cliente.onRendered(() => {
+    template = Template.instance();
     CtrlCliente.checkIfCanUserInsert(template.canInsertCliente);
 });
 
@@ -95,8 +96,9 @@ Template.clienteAdd.events({
 });
 
 Template.clienteView.onCreated(() => {
-    Meteor.subscribe('cliente');
+    var id = FlowRouter.getParam('_id');
     template = Template.instance();
+    CtrlCliente.applySubscribe(template,'view',id);
     template.canUpdateCliente = new ReactiveVar(false);
     template.canRemoveCliente = new ReactiveVar(false);
 });
@@ -162,8 +164,9 @@ Template.clienteView.events({
 
 
 Template.clienteEdit.onCreated(() => {
+    var id = FlowRouter.getParam('_id');
     template = Template.instance();
-    Meteor.subscribe('cliente');
+    CtrlCliente.applySubscribe(template,'edit',id);
 });
 
 Template.clienteEdit.onRendered(() => {
@@ -245,7 +248,8 @@ Template.clienteEdit.events({
 
 
 Template.clienteList.onCreated(() => {
-    Meteor.subscribe('cliente');
+    template = Template.instance();
+    CtrlCliente.applySubscribe(template,'list');    
 });
 
 Template.clienteList.helpers({

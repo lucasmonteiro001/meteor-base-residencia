@@ -7,3 +7,5 @@ class controllerCliente extends controllerBase {
 
 export const CtrlCliente = new controllerCliente(Cliente);
 
+
+
