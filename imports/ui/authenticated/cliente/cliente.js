@@ -8,7 +8,7 @@ let template;
 
 Template.cliente.onCreated(() => {
     template = Template.instance();
-    CtrlCliente.applySubscribe(template,'list');
+    CtrlCliente.applySubscribe(template);
     template.canInsertCliente = new ReactiveVar(false);
 });
 
@@ -96,21 +96,21 @@ Template.clienteAdd.events({
 });
 
 Template.clienteView.onCreated(() => {
-    var id = FlowRouter.getParam('_id');
+    let id = FlowRouter.getParam('_id');
     template = Template.instance();
-    CtrlCliente.applySubscribe(template,'view',id);
+    CtrlCliente.applySubscribe(template,id);
     template.canUpdateCliente = new ReactiveVar(false);
     template.canRemoveCliente = new ReactiveVar(false);
 });
 
 Template.clienteView.onRendered(() => {
-    var id = FlowRouter.getParam('_id');
+    let id = FlowRouter.getParam('_id');
     template = Template.instance();
 
     CtrlCliente.checkIfCanUserUpdate(template.canUpdateCliente, id);
     CtrlCliente.checkIfCanUserRemove(template.canRemoveCliente, id);
 
-    var dadosClientes = CtrlCliente.get({_id: id});
+    let dadosClientes = CtrlCliente.get({_id: id});
     template.dadosDoCliente = dadosClientes;
 
 
@@ -129,7 +129,7 @@ Template.clienteView.helpers({
         return template.canRemoveCliente.get() || template.canUpdateCliente.get();
     },
     'dadosDoCliente': () => {
-        var idCliente = FlowRouter.getParam('_id');
+        let idCliente = FlowRouter.getParam('_id');
         return CtrlCliente.get({_id: idCliente});
     }
 });
@@ -138,8 +138,8 @@ Template.clienteView.events({
 
     //Eventos do template de inserção
     'click #linkExcluir' (event, template) {
-        var sel = event.target;
-        var id = sel.getAttribute('value');
+        let sel = event.target;
+        let id = sel.getAttribute('value');
 
         Message.showConfirmation("Remover o cliente?", "Não é possível recuperar um cliente removido!", "Sim, remover!", (erro, confirm) => {
             if (confirm) {
@@ -164,15 +164,15 @@ Template.clienteView.events({
 
 
 Template.clienteEdit.onCreated(() => {
-    var id = FlowRouter.getParam('_id');
+    let id = FlowRouter.getParam('_id');
     template = Template.instance();
-    CtrlCliente.applySubscribe(template,'edit',id);
+    CtrlCliente.applySubscribe(template,id);
 });
 
 Template.clienteEdit.onRendered(() => {
 
-    var id = FlowRouter.getParam('_id');
-    var dadosClientes = CtrlCliente.get({_id: id});
+    let id = FlowRouter.getParam('_id');
+    let dadosClientes = CtrlCliente.get({_id: id});
     Template.instance().dadosDoCliente = dadosClientes;
 
 
@@ -215,7 +215,7 @@ Template.clienteEdit.onRendered(() => {
 
 Template.clienteEdit.helpers({
     'dadosDoCliente': () => {
-        var idCliente = FlowRouter.getParam('_id');
+        let idCliente = FlowRouter.getParam('_id');
         return CtrlCliente.get({_id: idCliente});
     }
 });
@@ -249,7 +249,7 @@ Template.clienteEdit.events({
 
 Template.clienteList.onCreated(() => {
     template = Template.instance();
-    CtrlCliente.applySubscribe(template,'list');    
+    CtrlCliente.applySubscribe(template);
 });
 
 Template.clienteList.helpers({

@@ -30,18 +30,18 @@ Meteor.methods({
         Cliente.remove(id);
     },
     'user.can.cliente.insert' () {
-        var objDataToCheck = {_id: "id_Fake_For_Permit_this_action"};
-        var result = Security.can(this.userId).insert(objDataToCheck).for(Cliente).check();
+        let objDataToCheck = {_id: "id_Fake_For_Permit_this_action"};
+        let result = Security.can(this.userId).insert(objDataToCheck).for(Cliente).check();
         return result;
      },
     'user.can.cliente.update' (id) {
         check(id,String);
-        var result = Security.can(this.userId).update(id).for(Cliente).check();
+        let result = Security.can(this.userId).update(id).for(Cliente).check();
         return result;
     },
     'user.can.cliente.remove'(id) {
         check(id,String);
-        var result = Security.can(this.userId).remove(id).for(Cliente).check();
+        let result = Security.can(this.userId).remove(id).for(Cliente).check();
         return result;
     }
 });

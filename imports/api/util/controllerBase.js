@@ -4,29 +4,16 @@ export class controllerBase {
     constructor(collection) {
         this.myCollection = collection;
         this.filter = {};
-
-        this.projection_list = {};
-
-        this.projection_edit = {};
-
-        this.projection_view = {};
+        this.projection = {default: {}};
 
     }
 
-    setRoles(filter) {
+    setFilter(filter) {
         this.filter = filter;
     }
 
-    setProjectionView(projection) {
-        this.projection_view = projection;
-    }
-
-    setProjectionEdit(projection) {
-        this.projection_edit = projection;
-    }
-
-    setProjectionList(projection) {
-        this.projection_list = projection;
+    setProjection(projectionName, projectionData) {
+        this.projectio[projectionName] = projectionData;
     }
 
     getAll() {
@@ -49,28 +36,14 @@ export class controllerBase {
         return this.myCollection.findOne(id);
     }
 
-    applySubscribe(template, acao,id="") {
+    applySubscribe(template, id = "", action = "default") {
         let filterTmp = this.filter;
-        if(id != "") {
-            console.log("Id não-vazio");
-            filterTmp = {_id:id}
+        if (id != "") {
+            filterTmp._id = id;
+        } else {
+            delete filterTmp._id;
         }
-            console.log(this.filter);
-        switch(acao) {
-            case 'list':
-                template.subscribe(this.getCollectionName(), filterTmp, this.projection_list);
-                break;
-            case 'view':
-                template.subscribe(this.getCollectionName(), filterTmp, this.projection_view);
-                break;
-            case 'edit':
-                template.subscribe(this.getCollectionName(), filterTmp, this.projection_edit);
-                break;
-            default:
-                template.subscribe(this.getCollectionName(), filterTmp, this.projection_list);
-        }
-
-
+        template.subscribe(this.getCollectionName(), filterTmp, this.projection[action]);
     }
 
     insert(collectionData, callback) {
@@ -105,7 +78,7 @@ export class controllerBase {
     }
 
     checkIfCanUserRemove(reactVar, id) {
-        var idToCheck = id;
+        let idToCheck = id;
         if (typeof id === 'undefined' || id === null) {
             idToCheck = "id_Fake_For_Permit_this_action";
         } else {
@@ -131,7 +104,7 @@ export class controllerBase {
     }
 
     checkIfCanUserUpdate(reactVar, id) {
-        var idToCheck = id;
+        let idToCheck = id;
         if (typeof id === 'undefined' || id === null) {
             idToCheck = "id_Fake_For_Permit_this_action";
         } else {
