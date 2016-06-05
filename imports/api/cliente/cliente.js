@@ -38,7 +38,7 @@ Cliente.attachSchema( Cliente_Schema );
 //##################################################
 
 //Grupos que podem realizar operações no banco de dados
-rolesCliente = ['administrador','comum'];
+rolesCliente = ['administrador'];
 
 // Deny all client-side updates on the Cliente collection
 Cliente.deny({

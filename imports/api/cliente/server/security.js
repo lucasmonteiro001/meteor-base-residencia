@@ -7,7 +7,7 @@ import {Cliente} from "./../cliente.js"
 //############ RESTRIÇÃO POR FUNCIONALIDADE ######
 //################################################
 //Por default, somente administradores conseguem editar as informações.
-Cliente.permit(['insert', 'update', 'remove']).ifHasRole(rolesCliente);
+Cliente.permit(['insert', 'update', 'remove','read']).ifHasRole(rolesCliente);
 
 
 
@@ -28,6 +28,6 @@ Security.defineMethod('ownsDocument', {
     }
 });
 
-Cliente.permit(['update', 'remove']).ownsDocument();
+Cliente.permit(['update', 'remove','read']).ownsDocument();
 
 

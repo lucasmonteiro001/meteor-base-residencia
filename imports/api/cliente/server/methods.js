@@ -43,5 +43,11 @@ Meteor.methods({
         check(id,String);
         let result = Security.can(this.userId).remove(id).for(Cliente).check();
         return result;
+    },
+    'user.can.cliente.read'(id) {
+        check(id,String);
+        let result = Security.can(this.userId).read(id).for(Cliente).check();
+        return result;
     }
+
 });

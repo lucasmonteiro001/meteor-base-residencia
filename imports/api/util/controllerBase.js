@@ -119,6 +119,23 @@ export class controllerBase {
         });
     }
 
+        checkIfCanUserView(reactVar, id) {
+        let idToCheck = id;
+        if (typeof id === 'undefined' || id === null) {
+            idToCheck = "id_Fake_For_Permit_this_action";
+        } else {
+            idToCheck = id;
+        }
+        Meteor.call('user.can.' + this.getCollectionName() + '.read', idToCheck, (error, result) => {
+            if (error) {
+                console.log(error);
+            } else {
+                reactVar.set(result);
+            }
+        });
+    }
+
+
 }
 
 
