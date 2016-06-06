@@ -2,7 +2,7 @@
  * Created by lucas on 5/5/16.
  */
 import { Template } from 'meteor/templating';
-import { Users } from '../../api/users/users';
+import { Users } from '../../../api/users/users';
 import './users.html';
 let template;
 

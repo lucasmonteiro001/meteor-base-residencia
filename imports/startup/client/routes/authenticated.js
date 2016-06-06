@@ -1,7 +1,7 @@
 import "../../../ui/authenticated/cliente/cliente";
 import {FlowRouter} from 'meteor/kadira:flow-router';
 import '../../../ui/authenticated/index';
-import  '../../../ui/authenticated/users';
+import  '../../../ui/authenticated/users/users';
 import {CtrlCliente} from '../../../api/cliente/controllerCliente.js'
 import {Message} from '../../../ui/utils/ui_utils';
 
@@ -54,13 +54,6 @@ authenticatedRoutes.route( '/', {
         BlazeLayout.render( 'default', { yield: 'index' } );
         console.log('rota: index');
 
-    }
-});
-
-authenticatedRoutes.route( '/dashboard', {
-    name: 'dashboard',
-    action() {
-        BlazeLayout.render( 'default', { yield: 'dashboard' } );
     }
 });
 

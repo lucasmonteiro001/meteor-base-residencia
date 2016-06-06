@@ -14,7 +14,6 @@ arillo:flow-router-helpers@0.5.1
 aslagle:reactive-table@0.8.31
 audit-argument-checks@1.0.7
 autoupdate@1.2.9
-avital:mocha@2.1.0_10
 babel-compiler@6.6.4
 babel-runtime@0.1.8
 base64@1.0.8
