@@ -1,13 +1,9 @@
 import {Template} from 'meteor/templating';
 import {FlowRouter} from 'meteor/kadira:flow-router';
 import './default.html';
-import '../globals/authenticated-menu.html';
-import '../globals/public-menu.html';
-
-import '../globals/header.html';
 import '../globals/public-navigation.html';
+import '../globals/header.html';
 import '../globals/loading.html';
-import '../globals/authenticated-navigation';
 import '../globals/footer.html';
 
 
